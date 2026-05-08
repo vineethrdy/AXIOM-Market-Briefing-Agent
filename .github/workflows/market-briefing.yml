@@ -1,0 +1,32 @@
+# .github/workflows/market-briefing.yml
+name: AXIOM Market Briefing Agent
+
+on:
+  schedule:
+    # 8:30 AM ET = 12:30 UTC (EST) / 13:30 UTC (EDT during summer)
+    # Runs Mon-Fri only
+    - cron: '30 12 * * 1-5'
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+jobs:
+  send-briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@3 nodemailer@6
+
+      - name: Run AXIOM Briefing
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+        run: node scripts/send-briefing.mjs
