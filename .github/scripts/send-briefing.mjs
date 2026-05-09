@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import nodemailer from 'nodemailer';
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const WATCHLIST = ["AMD", "NBIS", "NVDA", "MSFT", "HIS", "PLTR", "SOFI", "AMZN", "AVGO", "MVIS", "BULL", "IREN"];
+const WATCHLIST = ["AMD", "NBIS", "MVIS", "BULL", "IREN"];
 const TODAY = new Date().toLocaleDateString("en-US", {
   weekday: "long", year: "numeric", month: "long", day: "numeric"
 });
