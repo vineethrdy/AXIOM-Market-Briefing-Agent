@@ -167,12 +167,16 @@ async function sendEmail(htmlContent) {
   console.log("📧 Sending email...");
   
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD  // Gmail App Password (not your real password)
+      pass: process.env.GMAIL_APP_PASSWORD
     }
   });
+  console.log("📬 Gmail user:", process.env.GMAIL_USER ? "✅ loaded" : "❌ MISSING");
+console.log("🔑 App password:", process.env.GMAIL_APP_PASSWORD ? "✅ loaded" : "❌ MISSING");
 
   const dayName = new Date().toLocaleDateString("en-US", { weekday: "long" });
   
